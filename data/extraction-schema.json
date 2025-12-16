@@ -1,0 +1,312 @@
+{
+  "convencao": {
+    "titulo": "Convenção do Condomínio",
+    "campos": {
+      "identificacao": {
+        "nomeCondominio": {
+          "tipo": "string",
+          "descricao": "Nome completo do condomínio"
+        },
+        "endereco": {
+          "tipo": "string",
+          "descricao": "Endereço completo"
+        },
+        "cnpj": {
+          "tipo": "string",
+          "descricao": "CNPJ do condomínio (pode ser encontrado nas Atas)"
+        },
+        "quantidadeUnidades": {
+          "tipo": "number",
+          "descricao": "Quantidade total de unidades"
+        },
+        "quantidadeBlocos": {
+          "tipo": "number",
+          "descricao": "Quantidade total de blocos"
+        },
+        "tipoCondominio": {
+          "tipo": "enum",
+          "valores": ["residencial", "comercial", "misto"],
+          "descricao": "Tipo do condomínio"
+        }
+      },
+      "estrutural": {
+        "quantidadeBlocos": {
+          "tipo": "number",
+          "descricao": "Quantidade de blocos"
+        },
+        "quantidadeUnidades": {
+          "tipo": "number",
+          "descricao": "Quantidade de unidades"
+        },
+        "quantidadeAreasComuns": {
+          "tipo": "number",
+          "descricao": "Quantidade de áreas comuns"
+        },
+        "areasComuns": {
+          "tipo": "array<string>",
+          "descricao": "Relação das principais áreas comuns existentes"
+        },
+        "descricaoFisica": {
+          "tipo": "string",
+          "descricao": "Descrição de elementos físicos do condomínio (terreno, entradas, taludes, áreas abertas)"
+        }
+      },
+      "regrasAssembleia": {
+        "periodicidadeAGO": {
+          "tipo": "string",
+          "descricao": "Periodicidade da Assembleia Geral Ordinária"
+        },
+        "prazoMinimoConvocacao": {
+          "tipo": "string",
+          "descricao": "Prazo mínimo de convocação"
+        },
+        "intervaloChamadas": {
+          "tipo": "string",
+          "descricao": "Intervalo entre primeira e segunda chamadas"
+        },
+        "quorumPrimeiraChamada": {
+          "tipo": "string",
+          "descricao": "Quórum de instalação em primeira chamada"
+        },
+        "quorumSegundaChamada": {
+          "tipo": "string",
+          "descricao": "Quórum de instalação em segunda chamada"
+        },
+        "quorumObrasNecessarias": {
+          "tipo": "string",
+          "descricao": "Quórum para obras necessárias"
+        },
+        "quorumAlteracaoConvencao": {
+          "tipo": "string",
+          "descricao": "Quórum para alteração da convenção"
+        }
+      },
+      "regrasFinanceiras": {
+        "dataVencimentoCota": {
+          "tipo": "string",
+          "descricao": "Data de vencimento da cota condominial"
+        },
+        "percentualMultaAtraso": {
+          "tipo": "string",
+          "descricao": "Percentual de multa por atraso"
+        },
+        "percentualFundoReserva": {
+          "tipo": "string",
+          "descricao": "Percentual de contribuição ao fundo de reserva"
+        }
+      }
+    }
+  },
+  "financeiro": {
+    "titulo": "Documentos Financeiros (Prestação de Contas + Previsão Orçamentária)",
+    "campos": {
+      "periodoReferencia": {
+        "tipo": "string",
+        "descricao": "Período de referência das informações financeiras"
+      },
+      "saldoConta": {
+        "tipo": "number",
+        "descricao": "Saldo em conta"
+      },
+      "valorFundoReserva": {
+        "tipo": "number",
+        "descricao": "Valor do fundo de reserva"
+      },
+      "totalRecursosDisponiveis": {
+        "tipo": "number",
+        "descricao": "Total de recursos disponíveis"
+      },
+      "movimentoPeriodo": {
+        "totalReceitas": {
+          "tipo": "number",
+          "descricao": "Valor total das receitas do período"
+        },
+        "totalDespesas": {
+          "tipo": "number",
+          "descricao": "Valor total das despesas do período"
+        },
+        "resultado": {
+          "tipo": "number",
+          "descricao": "Resultado financeiro do período"
+        },
+        "tipoResultado": {
+          "tipo": "enum",
+          "valores": ["superavit", "deficit"],
+          "descricao": "Tipo do resultado (superávit ou déficit)"
+        }
+      }
+    }
+  },
+  "atas": {
+    "titulo": "Atas de Assembleia (AGE + AGO)",
+    "campos": {
+      "governanca": {
+        "gestaoAtual": {
+          "tipo": "string",
+          "descricao": "Identificação da gestão atual"
+        },
+        "sindico": {
+          "nome": {
+            "tipo": "string",
+            "descricao": "Nome do síndico"
+          },
+          "unidade": {
+            "tipo": "string",
+            "descricao": "Unidade do síndico"
+          },
+          "periodoMandato": {
+            "tipo": "string",
+            "descricao": "Período do mandato do síndico"
+          }
+        },
+        "subsindico": {
+          "nome": {
+            "tipo": "string",
+            "descricao": "Nome do subsíndico"
+          },
+          "unidade": {
+            "tipo": "string",
+            "descricao": "Unidade do subsíndico"
+          }
+        },
+        "conselho": {
+          "tipo": "array",
+          "descricao": "Membros do conselho",
+          "itens": {
+            "nome": {
+              "tipo": "string",
+              "descricao": "Nome do conselheiro"
+            },
+            "unidade": {
+              "tipo": "string",
+              "descricao": "Unidade de cada conselheiro"
+            },
+            "tipoParticipacao": {
+              "tipo": "enum",
+              "valores": ["efetivo", "suplente"],
+              "descricao": "Tipo de participação"
+            },
+            "presidente": {
+              "tipo": "boolean",
+              "descricao": "Identificação do presidente do conselho"
+            }
+          }
+        }
+      },
+      "cotaCondominial": {
+        "existeCotaVigente": {
+          "tipo": "boolean",
+          "descricao": "Existência de cota condominial vigente"
+        },
+        "valorTaxa": {
+          "tipo": "number",
+          "descricao": "Valor da taxa condominial"
+        },
+        "existeReajusteAprovado": {
+          "tipo": "boolean",
+          "descricao": "Existência de reajuste aprovado"
+        },
+        "percentualFundoReserva": {
+          "tipo": "string",
+          "descricao": "Percentual destinado ao fundo de reserva"
+        },
+        "valorAdicionalFundoReserva": {
+          "tipo": "number",
+          "descricao": "Valor adicional destinado ao fundo de reserva"
+        },
+        "valorTotalAposReajuste": {
+          "tipo": "number",
+          "descricao": "Valor total da taxa condominial após reajuste"
+        }
+      },
+      "deliberacoes": {
+        "resumoAGO": {
+          "tipo": "string",
+          "descricao": "Breve resumo das deliberações aprovadas em AGO"
+        },
+        "resumoAGE": {
+          "tipo": "string",
+          "descricao": "Breve resumo das deliberações aprovadas em AGE"
+        }
+      }
+    }
+  },
+  "certidoes": {
+    "titulo": "Certidões",
+    "campos": {
+      "certidoes": {
+        "tipo": "array",
+        "descricao": "Lista de certidões",
+        "itens": {
+          "tipo": {
+            "tipo": "string",
+            "descricao": "Tipo de certidão apresentada"
+          },
+          "situacao": {
+            "tipo": "enum",
+            "valores": ["regular", "negativa", "positiva"],
+            "descricao": "Situação da certidão"
+          },
+          "dataValidade": {
+            "tipo": "string",
+            "descricao": "Data de validade de cada certidão"
+          }
+        }
+      }
+    }
+  },
+  "departamentoPessoal": {
+    "titulo": "Departamento Pessoal",
+    "campos": {
+      "possuiFuncionariosProprios": {
+        "tipo": "boolean",
+        "descricao": "Existência ou inexistência de funcionários próprios"
+      },
+      "funcionarios": {
+        "tipo": "array",
+        "descricao": "Lista de funcionários",
+        "itens": {
+          "nome": {
+            "tipo": "string",
+            "descricao": "Nome do funcionário"
+          },
+          "salario": {
+            "tipo": "number",
+            "descricao": "Salário do funcionário"
+          },
+          "horasExtras": {
+            "tipo": "number",
+            "descricao": "Horas extras do funcionário"
+          }
+        }
+      },
+      "custoTotalFolha": {
+        "tipo": "number",
+        "descricao": "Total de custo com folha de pagamentos"
+      }
+    }
+  },
+  "juridico": {
+    "titulo": "Jurídico",
+    "campos": {
+      "processos": {
+        "tipo": "array",
+        "descricao": "Lista de processos existentes",
+        "itens": {
+          "identificacao": {
+            "tipo": "string",
+            "descricao": "Identificação/número do processo"
+          },
+          "descricao": {
+            "tipo": "string",
+            "descricao": "Breve descrição do processo"
+          },
+          "status": {
+            "tipo": "string",
+            "descricao": "Status atual do processo"
+          }
+        }
+      }
+    }
+  }
+}
