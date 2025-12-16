@@ -406,25 +406,46 @@ export default function HomePage() {
     }
   }, []);
 
+  // Limite de 4MB para Vercel Hobby (4.5MB real, mas usamos 4MB por segurança)
+  const MAX_FILE_SIZE = 4 * 1024 * 1024;
+
   const handleFilesAdded = useCallback(
     (documentType: DocumentType) => (newFiles: File[]) => {
-      const uploadedFiles: UploadedFile[] = newFiles.map((file) => ({
-        id: generateId(),
-        file,
-        name: file.name,
-        size: file.size,
-        type: file.type,
-        status: "processing" as const,
-      }));
+      const uploadedFiles: UploadedFile[] = newFiles.map((file) => {
+        // Verifica tamanho do arquivo
+        if (file.size > MAX_FILE_SIZE) {
+          return {
+            id: generateId(),
+            file,
+            name: file.name,
+            size: file.size,
+            type: file.type,
+            status: "error" as const,
+            error: `Arquivo muito grande (${(file.size / 1024 / 1024).toFixed(1)}MB). Máximo: 4MB. Comprima o PDF antes de enviar.`,
+          };
+        }
+
+        return {
+          id: generateId(),
+          file,
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          status: "processing" as const,
+        };
+      });
 
       setFiles((prev) => ({
         ...prev,
         [documentType]: [...prev[documentType], ...uploadedFiles],
       }));
 
-      uploadedFiles.forEach((uf) => {
-        processFile(uf.file, documentType, uf.id);
-      });
+      // Só processa arquivos que não têm erro
+      uploadedFiles
+        .filter((uf) => uf.status === "processing")
+        .forEach((uf) => {
+          processFile(uf.file, documentType, uf.id);
+        });
     },
     [processFile]
   );
