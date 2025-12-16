@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { extractDataFromDocument } from "@/lib/gemini";
 import { DocumentType } from "@/types";
 
+// Configuração para permitir uploads maiores (até 50MB)
+export const runtime = "nodejs";
+export const maxDuration = 60; // 60 segundos timeout
+
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
@@ -18,6 +22,15 @@ export async function POST(request: NextRequest) {
     if (!documentType) {
       return NextResponse.json(
         { error: "Tipo de documento não especificado" },
+        { status: 400 }
+      );
+    }
+
+    // Verifica tamanho do arquivo (limite de 20MB)
+    const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
+    if (file.size > MAX_FILE_SIZE) {
+      return NextResponse.json(
+        { error: `Arquivo muito grande. Tamanho máximo: 20MB. Seu arquivo: ${(file.size / 1024 / 1024).toFixed(2)}MB` },
         { status: 400 }
       );
     }
@@ -42,7 +55,8 @@ export async function POST(request: NextRequest) {
     const extractedData = await extractDataFromDocument(
       base64,
       mimeType,
-      documentType
+      documentType,
+      file.name
     );
 
     return NextResponse.json({
