@@ -406,8 +406,8 @@ export default function HomePage() {
     }
   }, []);
 
-  // Limite de 4MB para Vercel Hobby (4.5MB real, mas usamos 4MB por segurança)
-  const MAX_FILE_SIZE = 4 * 1024 * 1024;
+  // Limite de 4.5MB para Vercel Hobby
+  const MAX_FILE_SIZE = 4.5 * 1024 * 1024;
 
   const handleFilesAdded = useCallback(
     (documentType: DocumentType) => (newFiles: File[]) => {
@@ -421,7 +421,7 @@ export default function HomePage() {
             size: file.size,
             type: file.type,
             status: "error" as const,
-            error: `Arquivo muito grande (${(file.size / 1024 / 1024).toFixed(1)}MB). Máximo: 4MB. Comprima o PDF antes de enviar.`,
+            error: `Arquivo muito grande (${(file.size / 1024 / 1024).toFixed(1)}MB). Máximo: 4.5MB. Comprima o PDF antes de enviar.`,
           };
         }
 
