@@ -1,8 +1,8 @@
 import { DocumentType } from "@/types";
 import { getPromptForDocumentType } from "./prompts";
 
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY || "";
-const GEMINI_MODEL = "gemini-2.0-flash";
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY || "AIzaSyCKj9S6lPBsFNxtUn4jy-oBr2nyWE9M2Bk";
+const GEMINI_MODEL = "gemini-3-pro-preview";
 const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 const GEMINI_UPLOAD_URL = "https://generativelanguage.googleapis.com/upload/v1beta/files";
 
